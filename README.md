@@ -15,7 +15,7 @@ Select a module to explore the tasks and solutions:
 | 📂 Module | 🎯 Focus Areas | 🛠️ Tech Stack | 📊 Status |
 |:----------|:---------------|:---------------|:----------|
 | **[🐧 Linux Ops](./Linux/)** | `User Management`, `Permissions`, `Scripting`, `SecOps` | ![Bash](https://img.shields.io/badge/-Bash-black?logo=gnu-bash&logoColor=white) ![Linux](https://img.shields.io/badge/-Linux-black?logo=linux&logoColor=white) | 🟢 Active |
-| **[🐳 Docker](./Docker/)** | `Containerization`, `Compose`, `Networking`, `Volumes` | ![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker&logoColor=white) | 🟡 In Progress |
+| **[🐳 Docker](./Docker/)** | `Containerization`, `Compose`, `Networking`, `Volumes` | ![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker&logoColor=white) | 🟢 Active |
 | **[📜 Ansible](./Ansible/)** | `Configuration Mgmt`, `Playbooks`, `Roles` | ![Ansible](https://img.shields.io/badge/-Ansible-EE0000?logo=ansible&logoColor=white) | ⚪ Planned |
 | **[👷 Jenkins](./Jenkins/)** | `CI/CD`, `Pipelines`, `Groovy`, `Automation` | ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white) | ⚪ Planned |
 | **[☸️ Kubernetes](./Kubernetes/)** | `Orchestration`, `Pods`, `Services`, `Deployments` | ![K8s](https://img.shields.io/badge/-Kubernetes-326ce5?logo=kubernetes&logoColor=white) | ⚪ Planned |
@@ -35,3 +35,4 @@ Select a module to explore the tasks and solutions:
 ## 📬 Contact & Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Vlad774-black?style=flat&logo=github)](https://github.com/Vlad774)
+
