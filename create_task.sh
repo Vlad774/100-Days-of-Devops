@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Check if the task name is provided
+# Check if the task name is provided as an argument
 if [ -z "$1" ]; then
   echo "❌ Error: Please provide a task name."
   exit 1
@@ -8,17 +8,17 @@ fi
 
 # Variables
 FULL_PATH=$1
-# Берём описание из аргумента. Если пусто — пишем дефолт.
+# Use the second argument as the description. If empty, use a default value.
 TASK_DESCRIPTION="${2:-No description provided in Issue.}" 
 CATEGORY=$(dirname "$FULL_PATH")
 TASK_NAME=$(basename "$FULL_PATH")
 README_PATH="$CATEGORY/README.md"
 
-# 1. Создаем папку
+# 1. Create the directory
 mkdir -p "$FULL_PATH"
 
-# 2. Генерируем ВНУТРЕННИЙ README (Полный)
-# Тут мы убрали Mermaid и Requirements, оставили только суть.
+# 2. Generate the inner README.md (Task documentation)
+# We kept this clean: removed Mermaid diagrams and extra sections to focus on content.
 cat <<EOF > "$FULL_PATH/README.md"
 # 🛠️ $TASK_NAME
 
@@ -36,19 +36,19 @@ $TASK_DESCRIPTION
 \`\`\`
 EOF
 
-# 3. Создаем файл для скрипта
+# 3. Create the solution script file
 touch "$FULL_PATH/solution.sh"
 chmod +x "$FULL_PATH/solution.sh"
 
-# 4. Обновляем РОДИТЕЛЬСКИЙ README (Краткий)
+# 4. Update the Parent README (Table of Contents)
 if [ -f "$README_PATH" ]; then
     echo "📝 Updating $README_PATH..."
     
-    # В таблицу мы НЕ пишем описание. Мы пишем заглушку.
-    # Так таблица всегда останется красивой и ровной.
+    # We do NOT write the full description in the table. We use a placeholder.
+    # This keeps the table clean and prevents formatting issues (like broken tables).
     NEW_ROW="| **$TASK_NAME** | 📄 *See details inside* | \`TBD\` | [View Solution](./$TASK_NAME/) |"
     
-    # Вставляем строку перед разделителем ---
+    # Insert the new row before the '---' separator
     sed -i "/^---/i $NEW_ROW" "$README_PATH"
 fi
 
