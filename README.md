@@ -4,7 +4,7 @@
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)
 ![Repo Size](https://img.shields.io/github/repo-size/Vlad774/100-Days-of-Devops?style=for-the-badge)
 
-Welcome to my DevOps journey repository! Here I document my learning path, solving real-world infrastructure problems, writing automation scripts, and configuring cloud environments.
+Welcome to my DevOps journey repository! Here I document, solving real-world infrastructure problems, writing automation scripts, and configuring cloud environments.
 
 ---
 
@@ -24,15 +24,11 @@ Select a module to explore the tasks and solutions:
 
 ---
 
-## 📈 Recent Activity
-
-* **SecOps:** Implemented GPG Encryption/Decryption workflow.
-* **Web Server:** Deployed Apache using Docker Compose with volume mapping.
-* **Automation:** Created a Bash script to auto-generate task structures.
 
 ---
 
 ## 📬 Contact & Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Vlad774-black?style=flat&logo=github)](https://github.com/Vlad774)
+
 
