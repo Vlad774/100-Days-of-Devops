@@ -8,5 +8,6 @@ Welcome to the Linux section of my DevOps journey. Here I document solutions for
 |------|-------------|------------|----------|
 | **GPG Encryption** | Secure file transfer using asymmetric encryption (GPG). Automating decryption with passphrases. | `GPG`, `SecOps`, `Encryption` | [View Solution](./GPG-Encryption/) |
 | **LogRotate** | 🚧 TODO: Add description | `TBD` | [View Solution](./LogRotate/) |
+| **User-Management** | 🚧 TODO: Summary | `TBD` | [View Solution](./User-Management/) |
 ---
 *Repositories structure follows the 100 Days of DevOps challenge.*
