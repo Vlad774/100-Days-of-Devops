@@ -7,6 +7,7 @@ This directory contains containerized applications and infrastructure-as-code se
 | Task | Description | Size | Key Skills | Solution |
 |------|-------------|------|------------|----------|
 | **Apache Web Server** | Deploying a static website using httpd image with volume mapping and port forwarding. | `XS` | `Docker Compose`, `Apache` | [View Solution](./Apache-Web-Server/) |
+| **Write-Docker-Compose-File** | Setup Nautilus static site with Bind Mounts and Port Mapping on a remote server. | `XS` | `Docker Compose`, `Volumes`, `vi` | [View Solution](./Write-Docker-Compose-File/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
