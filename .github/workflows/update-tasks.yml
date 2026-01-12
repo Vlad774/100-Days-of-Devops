@@ -42,7 +42,17 @@ jobs:
 
       - name: Write to README
         run: |
-          perl -0777 -i -pe "s/.*?/\n$TABLE_CONTENT\n/s" README.md
+          # 1. MARKER to locate in README.md
+          sed -n '1,//p' README.md > README.new
+          
+          # 2. Add the generated table
+          echo -e "$TABLE_CONTENT" >> README.new
+          
+          # 3. Add everything AFTER the marker
+          sed -n '//,$p' README.md >> README.new
+          
+          # 4. Replace the old file with the new one
+          mv README.new README.md
 
       - name: Commit and Push
         run: |
