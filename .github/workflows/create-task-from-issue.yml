@@ -1,4 +1,4 @@
-name: 🤖 Create Task from Issue
+name: 🤖 Create Task (Feature Branch)
 
 on:
   issues:
@@ -23,33 +23,51 @@ jobs:
           echo "task_name=$TITLE" >> $GITHUB_OUTPUT
 
       - name: ⚙️ Run Generator Script
-        # We pass the title AND the body (description) to the script
-        # Environment variable is safer for multiline text
         env:
           TASK_DESC: ${{ github.event.issue.body }}
         run: |
           chmod +x ./create_task.sh
-          # We use quotes to handle spaces and newlines correctly
           ./create_task.sh "${{ steps.get_data.outputs.task_name }}" "$TASK_DESC"
 
-      - name: 🔧 Configure Git
+      - name: 🔧 Configure Git & Switch Branch
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-
-      - name: 🚀 Commit and Push
-        run: |
+          
+          
+          SAFE_NAME=$(echo "${{ steps.get_data.outputs.task_name }}" | tr ' ' '-')
+          BRANCH_NAME="feature/$SAFE_NAME"
+          
+          echo "Creating branch: $BRANCH_NAME"
+          
+          
+          git checkout -b "$BRANCH_NAME"
+          
+          
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Init task '${{ steps.get_data.outputs.task_name }}' triggered by label" && git push)
+          git commit -m "Auto: Init task '${{ steps.get_data.outputs.task_name }}' (feature branch)"
+          git push origin "$BRANCH_NAME"
+          
+          
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: 💬 Comment on Issue
         uses: peter-evans/create-or-update-comment@v3
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            ✅ **Automation Triggered!**
+            ✅ **Branch Created!**
             
-            I have created the folder structure and copied your description.
+            I have initialized the task in a dedicated branch.
             
-            📂 [Go to Task Folder](../../tree/main/${{ steps.get_data.outputs.task_name }})
+            🌿 **Branch:** `${{ steps.get_data.outputs.branch_name }}`
+            
+            1. Fetch the new branch locally:
+               ```bash
+               git fetch origin
+               git checkout ${{ steps.get_data.outputs.branch_name }}
+               ```
+            2. Work on your task.
+            3. Create a **Pull Request** to merge into main.
+            
             🚀 Happy coding!
