@@ -4,9 +4,9 @@ Welcome to the Terraform section of my DevOps journey. Here I document Infrastru
 
 ## 📂 Solved Tasks
 
-| Task | Description | Key Skills | Solution |
-|------|-------------|------------|----------|
-| **User Variable Setup Using Terraform** | 📄 *See details inside* | `TBD` | [View Solution](./User-Variable-Setup/) |
+| Task | Description | Size | Key Skills | Solution |
+|------|-------------|------|------------|----------|
+| **User Variable Setup Using Terraform** | 📄 *See details inside* | `XS` | `TBD` | [View Solution](./User-Variable-Setup/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
