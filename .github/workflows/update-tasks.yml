@@ -42,13 +42,13 @@ jobs:
 
       - name: Write to README
         run: |
-          # 1. MARKER to locate in README.md
+          # 1. Take content before the marker
           sed -n '1,//p' README.md > README.new
           
           # 2. Add the generated table
           echo -e "$TABLE_CONTENT" >> README.new
           
-          # 3. Add everything AFTER the marker
+          # 3. Add the end marker and everything after it
           sed -n '//,$p' README.md >> README.new
           
           # 4. Replace the old file with the new one
