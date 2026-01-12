@@ -15,8 +15,29 @@ d. Map container's /usr/local/apache2/htdocs volume with /opt/devops volume of d
 
 ## 🚀 Solution
 
+1. Connect to App Server 3
+
 ### 📝 Execution Steps:
 
+cd /opt/docker
+
+Create the file /opt/docker/docker-compose.yml
+
 ```bash
-# Write your commands here...
+version: '3'
+services:
+  web:
+    image: httpd:latest
+    container_name: httpd
+    ports:
+      - "8086:80"
+    volumes:
+      - /opt/devops:/usr/local/apache2/htdocs
 ```
+
+sudo docker-compose up -d
+
+sudo docker ps
+# Output should show: 0.0.0.0:8086->80/tcp
+
+curl http://localhost:8086
