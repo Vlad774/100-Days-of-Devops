@@ -17,8 +17,19 @@ The Terraform working directory is /home/bob/terraform.
 
 ## 🚀 Solution
 
+main.tf
+
+variables.tf
+
 ### 📝 Execution Steps:
 
 ```bash
-# Write your commands here...
+# Initialize Terraform
+terraform init
+
+# Check the plan
+terraform plan
+
+# Apply the configuration
+terraform apply --auto-approve
 ```
