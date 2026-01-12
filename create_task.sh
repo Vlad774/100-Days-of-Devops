@@ -18,7 +18,6 @@ README_PATH="$CATEGORY/README.md"
 mkdir -p "$FULL_PATH"
 
 # 2. Generate the inner README.md (Task documentation)
-# We kept this clean: removed Mermaid diagrams and extra sections to focus on content.
 cat <<EOF > "$FULL_PATH/README.md"
 # 🛠️ $TASK_NAME
 
@@ -36,16 +35,14 @@ $TASK_DESCRIPTION
 \`\`\`
 EOF
 
-# 3. Create the solution script file
-touch "$FULL_PATH/solution.sh"
-chmod +x "$FULL_PATH/solution.sh"
+# Note: We removed the automatic creation of solution.sh. 
+# If you need a script, create it manually.
 
-# 4. Update the Parent README (Table of Contents)
+# 3. Update the Parent README (Table of Contents)
 if [ -f "$README_PATH" ]; then
     echo "📝 Updating $README_PATH..."
     
-    # We do NOT write the full description in the table. We use a placeholder.
-    # This keeps the table clean and prevents formatting issues (like broken tables).
+    # We use a placeholder for description to keep the table clean
     NEW_ROW="| **$TASK_NAME** | 📄 *See details inside* | \`TBD\` | [View Solution](./$TASK_NAME/) |"
     
     # Insert the new row before the '---' separator

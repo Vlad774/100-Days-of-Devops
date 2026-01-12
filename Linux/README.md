@@ -8,4 +8,4 @@ Welcome to the Linux section of my DevOps journey. Here I document solutions for
 |------|-------------|------------|----------|
 | **GPG Encryption** | Secure file transfer using asymmetric encryption (GPG). Automating decryption with passphrases. | `GPG`, `SecOps`, `Encryption` | [View Solution](./GPG-Encryption/) |
 ---
-*Repositories structure follows the 100 Days of DevOps challenge.*
+*This table is automatically updated by GitHub Actions.*
