@@ -40,12 +40,10 @@ EOF
 
 # 3. Update the Parent README (Table of Contents)
 if [ -f "$README_PATH" ]; then
-    echo "📝 Updating $README_PATH..."
+    echo "📝 Updating $README_PATH..."       
     
-    # We use a placeholder for description to keep the table clean
-    NEW_ROW="| **$TASK_NAME** | 📄 *See details inside* | \`TBD\` | [View Solution](./$TASK_NAME/) |"
+    NEW_ROW="| **$TASK_NAME** | 🚧 *Pending Description* | \`TBD\` | \`Tags TBD\` | [View Solution](./$TASK_NAME/) |"    
     
-    # Insert the new row before the '---' separator
     sed -i "/^---/i $NEW_ROW" "$README_PATH"
 fi
 
