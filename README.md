@@ -1,4 +1,4 @@
-# 🚀 100 Days of DevOps Challenge
+# 🚀 Many Days of DevOps Challenge
 
 ![Status](https://img.shields.io/badge/Status-In_Progress-orange?style=for-the-badge)
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)
@@ -27,4 +27,5 @@ Select a module to explore the tasks and solutions:
 ## 📬 Contact & Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Vlad774-black?style=flat&logo=github)](https://github.com/Vlad774)
+
 
