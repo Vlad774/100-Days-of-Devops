@@ -29,5 +29,45 @@ The zip package must be installed on given App Server before executing the scrip
 ### 📝 Execution Steps:
 
 ```bash
-# Write your commands here...
+# 1. Login to App Server 3
+ssh banner@stapp03 
+# Switch to root to install packages and configure directories
+sudo su - 
+
+# 2. Install prerequisites and setup permissions (as Root)
+# 'zip' is required to create archives
+yum install zip -y
+
+# Ensure the script directory exists and banner owns it
+mkdir -p /scripts
+chown banner:banner /scripts
+
+# Ensure banner can write to the local backup directory
+chown banner:banner /backup 
+
+# Switch back to 'banner' user to setup the script
+exit 
+
+# 3. Setup Passwordless SSH to Backup Server (as banner)
+# We need this so the script doesn't hang waiting for a password.
+# Target: clint@stbkp01 (Password from infrastructure details:)
+ssh-keygen -t rsa
+ssh-copy-id clint@stbkp01
+
+# 4. Create the backup script
+# We use 'cat' with EOF to write the file directly.
+cat << 'EOF' > /scripts/official_backup.sh
+#!/bin/bash
+
+# a. & b. Create zip archive of the website folder to local backup dir
+zip -r /backup/xfusioncorp_official.zip /var/www/html/official
+
+# c. Copy the created archive to Nautilus Backup Server
+# Using SCP without password (thanks to step 3)
+scp /backup/xfusioncorp_official.zip clint@stbkp01:/backup/
+EOF
+
+# 5. Make executable and run test
+chmod +x /scripts/official_backup.sh
+/scripts/official_backup.sh
 ```
