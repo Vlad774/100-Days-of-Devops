@@ -9,6 +9,7 @@ This directory contains containerized applications and infrastructure-as-code se
 | **Apache Web Server** | Deploying a static website using httpd image with volume mapping and port forwarding. | `XS` | `Docker Compose`, `Apache` | [View Solution](./Apache-Web-Server/) |
 | **Write-Docker-Compose-File** | Setup Nautilus static site with Bind Mounts and Port Mapping on a remote server. | `XS` | `Docker Compose`, `Volumes`, `vi` | [View Solution](./Write-Docker-Compose-File/) |
 | **Resolve-Dockerfile-Issues** | 📄 *See details inside* | `TBD` | [View Solution](./Resolve-Dockerfile-Issues/) |
+| **Deploy-an-App-on-Docker-Containers** | 🚧 *Pending Description* | `TBD` | `Tags TBD` | [View Solution](./Deploy-an-App-on-Docker-Containers/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
