@@ -7,6 +7,7 @@ Welcome to the Terraform section of my DevOps journey. Here I document Infrastru
 | Task | Description | Size | Key Skills | Solution |
 |------|-------------|------|------------|----------|
 | **User Variable Setup Using Terraform** | 📄 *See details inside* | `XS` | `TBD` | [View Solution](./User-Variable-Setup/) |
+| **Role-Variable-Setup-Using-Terraform** | 🚧 *Pending Description* | `TBD` | `Tags TBD` | [View Solution](./Role-Variable-Setup-Using-Terraform/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
