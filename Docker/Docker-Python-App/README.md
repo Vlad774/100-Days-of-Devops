@@ -1,35 +1,54 @@
-# 🛠️ Docker-Python-App
+# 🐳 Containerizing a Python App with Docker
 
 ## 📄 Task Description
-A python app needed to be Dockerized, and then it needs to be deployed on App Server 2. We have already copied a requirements.txt file (having the app dependencies) under /python_app/src/ directory on App Server 2. Further complete this task as per details mentioned below:
+The goal was to dockerize a Python application and deploy it on **App Server 2**. The application source code was located at `/python_app/src/`.
 
-
-
-Create a Dockerfile under /python_app directory:
-
-Use any python image as the base image.
-Install the dependencies using requirements.txt file.
-Expose the port 5001.
-Run the server.py script using CMD.
-
-Build an image named nautilus/python-app using this Dockerfile.
-
-
-Once image is built, create a container named pythonapp_nautilus:
-
-Map port 5001 of the container to the host port 8092.
-
-Once deployed, you can test the app using curl command on App Server 2.
-
-
-curl http://localhost:8092/
+**Requirements:**
+- [x] Create a `Dockerfile` in `/python_app`.
+- [x] Use a Python base image.
+- [x] Install dependencies from `requirements.txt`.
+- [x] Expose port `5001`.
+- [x] Run `server.py` on container start.
+- [x] Build image named `nautilus/python-app`.
+- [x] Map container port `5001` to host port `8092`.
 
 ---
 
 ## 🚀 Solution
 
+### 1. The Dockerfile
+Created in `/python_app/Dockerfile`:
+
+```dockerfile
+# Use Python as base image
+FROM python:3.9
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy all files from host (current dir) to container
+COPY . .
+
+# Install dependencies
+# Note: Since we copied everything to /app, the path is now src/requirements.txt
+RUN pip install -r src/requirements.txt
+
+# Expose the internal app port
+EXPOSE 5001
+
+# Command to run the application
+CMD ["python", "src/server.py"]
+
 ### 📝 Execution Steps:
 
 ```bash
-# Write your commands here...
+
+ docker build -t nautilus/python-app .
+
+ docker run -d -p 8092:5001 --name pythonapp_nautilus nautilus/python-app
+
+ docker ps
+
+ curl http://localhost:8092/
+
 ```
