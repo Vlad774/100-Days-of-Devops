@@ -17,8 +17,52 @@ The Terraform working directory is /home/bob/terraform
 
 ## 🚀 Solution
 
+Create a file named variables.tf with the following content:
+
+variable "KKE_iamrole" {
+  description = "Name of the IAM role to be created"
+  type        = string
+  default     = "iamrole_ravi"
+}
+
+
+Create a file named main.tf with the following content:
+
+resource "aws_iam_role" "iam_role" {
+  # Referencing the variable for the role name
+  name = var.KKE_iamrole
+
+  # Trust Policy (Required for IAM Roles)
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
 ### 📝 Execution Steps:
 
 ```bash
-# Write your commands here...
+# 1. Switch to the working directory
+cd /home/bob/terraform
+
+# 2. Initialize Terraform (downloads the AWS provider)
+terraform init
+
+# 3. Preview the changes
+terraform plan
+
+# 4. Apply the configuration to create the role
+# (Type 'yes' when prompted, or use -auto-approve)
+terraform apply -auto-approve
+
+# 5. Verify the role creation using AWS CLI
+aws iam get-role --role-name iamrole_ravi
 ```
