@@ -22,32 +22,44 @@ jobs:
           TITLE="${{ github.event.issue.title }}"
           echo "task_name=$TITLE" >> $GITHUB_OUTPUT
 
+      # [NEW] 
+      - name: 🔍 Determine Category (Template)
+        id: get_category
+        run: |
+          LABELS_JSON='${{ toJson(github.event.issue.labels) }}'
+          CATEGORY="general"
+          
+          if echo "$LABELS_JSON" | grep -iq "Terraform"; then
+            CATEGORY="terraform"
+          elif echo "$LABELS_JSON" | grep -iq "Linux"; then
+            CATEGORY="linux"
+          fi
+          
+          echo "category=$CATEGORY" >> $GITHUB_OUTPUT
+
+      # [UPDATED] 
       - name: ⚙️ Run Generator Script
         env:
           TASK_DESC: ${{ github.event.issue.body }}
         run: |
           chmod +x ./create_task.sh
-          ./create_task.sh "${{ steps.get_data.outputs.task_name }}" "$TASK_DESC"
+          ./create_task.sh "${{ steps.get_data.outputs.task_name }}" "$TASK_DESC" "${{ steps.get_category.outputs.category }}"
 
       - name: 🔧 Configure Git & Switch Branch
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           
-          
           SAFE_NAME=$(echo "${{ steps.get_data.outputs.task_name }}" | tr ' ' '-')
           BRANCH_NAME="feature/$SAFE_NAME"
           
           echo "Creating branch: $BRANCH_NAME"
           
-          
           git checkout -b "$BRANCH_NAME"
           
-          
           git add .
-          git commit -m "Auto: Init task '${{ steps.get_data.outputs.task_name }}' (feature branch)"
+          git commit -m "Auto: Init task '${{ steps.get_data.outputs.task_name }}' using ${{ steps.get_category.outputs.category }} template"
           git push origin "$BRANCH_NAME"
-          
           
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
@@ -58,7 +70,7 @@ jobs:
           body: |
             ✅ **Branch Created!**
             
-            I have initialized the task in a dedicated branch.
+            Template used: **${{ steps.get_category.outputs.category }}** 🛠️
             
             🌿 **Branch:** `${{ steps.get_data.outputs.branch_name }}`
             
