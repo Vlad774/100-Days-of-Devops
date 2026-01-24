@@ -24,7 +24,7 @@ else
 fi
 
 # Format directory name (replace spaces with hyphens)
-SAFE_DIR_NAME=$(echo "$TASK_NAME" | tr ' ' '-')
+SAFE_DIR_NAME=$(echo "$TASK_NAME" | tr ' /' '-')
 FULL_PATH="$BASE_DIR/$SAFE_DIR_NAME"
 
 echo "🚀 Creating Task: $TASK_NAME"
