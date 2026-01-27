@@ -1,4 +1,4 @@
-name: 🤖 Create Task (Feature Branch)
+name: 🤖 Create Task from Issue
 
 on:
   issues:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   create-task:
+    # Only run if the label is 'build'
     if: github.event.label.name == 'build'
     runs-on: ubuntu-latest
     permissions:
@@ -16,49 +17,52 @@ jobs:
       - name: ⬇️ Checkout code
         uses: actions/checkout@v3
 
-      - name: 🏷️ Get Issue Data
-        id: get_data
+      - name: ✂️ Parse Issue Title
+        id: parse
         run: |
+          # Get the issue title (e.g., "Terraform/Create VPC")
           TITLE="${{ github.event.issue.title }}"
-          echo "task_name=$TITLE" >> $GITHUB_OUTPUT
-
-      # [NEW] 
-      - name: 🔍 Determine Category (Template)
-        id: get_category
-        run: |
-          LABELS_JSON='${{ toJson(github.event.issue.labels) }}'
-          CATEGORY="general"
           
-          if echo "$LABELS_JSON" | grep -iq "Terraform"; then
-            CATEGORY="terraform"
-          elif echo "$LABELS_JSON" | grep -iq "Linux"; then
-            CATEGORY="linux"
+          # Logic: Split by slash '/'. 
+          # Part 1 = Category (Folder/Template), Part 2 = Task Name.
+          if [[ "$TITLE" == *"/"* ]]; then
+            CATEGORY=$(echo "$TITLE" | awk -F'/' '{print $1}' | xargs)
+            TASK_NAME=$(echo "$TITLE" | awk -F'/' '{print $2}' | xargs)
+          else
+            # If no slash is found, default to General
+            CATEGORY="General"
+            TASK_NAME="$TITLE"
           fi
           
+          echo "📂 Category detected: $CATEGORY"
+          echo "📝 Task Name detected: $TASK_NAME"
+          
+          # Save variables for the next steps
           echo "category=$CATEGORY" >> $GITHUB_OUTPUT
+          echo "task_name=$TASK_NAME" >> $GITHUB_OUTPUT
 
-      # [UPDATED] 
       - name: ⚙️ Run Generator Script
-        env:
-          TASK_DESC: ${{ github.event.issue.body }}
         run: |
           chmod +x ./create_task.sh
-          ./create_task.sh "${{ steps.get_data.outputs.task_name }}" "$TASK_DESC" "${{ steps.get_category.outputs.category }}"
+          # Execute script with arguments: "Task Name" "Body" "Category"
+          ./create_task.sh "${{ steps.parse.outputs.task_name }}" "${{ github.event.issue.body }}" "${{ steps.parse.outputs.category }}"
 
-      - name: 🔧 Configure Git & Switch Branch
+      - name: 🔧 Commit & Push (Feature Branch)
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           
-          SAFE_NAME=$(echo "${{ steps.get_data.outputs.task_name }}" | tr ' ' '-')
-          BRANCH_NAME="feature/$SAFE_NAME"
+          # Sanitize branch name (replace spaces with hyphens)
+          SAFE_CAT=$(echo "${{ steps.parse.outputs.category }}" | tr ' ' '-')
+          SAFE_TASK=$(echo "${{ steps.parse.outputs.task_name }}" | tr ' ' '-')
           
-          echo "Creating branch: $BRANCH_NAME"
+          # Branch structure: feature/Category/Task-Name
+          BRANCH_NAME="feature/$SAFE_CAT/$SAFE_TASK"
           
           git checkout -b "$BRANCH_NAME"
           
           git add .
-          git commit -m "Auto: Init task '${{ steps.get_data.outputs.task_name }}' using ${{ steps.get_category.outputs.category }} template"
+          git commit -m "Auto: Init task '${{ steps.parse.outputs.task_name }}' in $SAFE_CAT"
           git push origin "$BRANCH_NAME"
           
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
@@ -68,18 +72,14 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            ✅ **Branch Created!**
+            ✅ **Task Initialized!**
             
-            Template used: **${{ steps.get_category.outputs.category }}** 🛠️
+            📂 **Category:** `${{ steps.parse.outputs.category }}`
+            🛠 **Template Used:** `_templates/${{ steps.parse.outputs.category }}`
+            🌿 **Branch:** `${{ steps.parse.outputs.branch_name }}`
             
-            🌿 **Branch:** `${{ steps.get_data.outputs.branch_name }}`
-            
-            1. Fetch the new branch locally:
-               ```bash
-               git fetch origin
-               git checkout ${{ steps.get_data.outputs.branch_name }}
-               ```
-            2. Work on your task.
-            3. Create a **Pull Request** to merge into main.
-            
-            🚀 Happy coding!
+            **To start working:**
+            ```bash
+            git fetch origin
+            git checkout ${{ steps.parse.outputs.branch_name }}
+            ```

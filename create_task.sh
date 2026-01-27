@@ -1,69 +1,66 @@
 #!/bin/bash
 
-# Validate input: Task name is required
-if [ -z "$1" ]; then
-  echo "❌ Error: Please provide a task name."
-  exit 1
-fi
-
-# Set variables from arguments
+# Arguments passed from GitHub Actions
 TASK_NAME="$1"
 TASK_DESC="${2:-No description provided.}"
-TEMPLATE_TYPE=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+CATEGORY="${3:-General}" 
 
-# Determine paths based on template type
-if [[ "$TEMPLATE_TYPE" == *"terraform"* ]]; then
-    BASE_DIR="Terraform"
-    TEMPLATE_SOURCE="_templates/terraform"
-elif [[ "$TEMPLATE_TYPE" == *"linux"* ]]; then
-    BASE_DIR="Linux"
-    TEMPLATE_SOURCE="_templates/linux"
-else
-    BASE_DIR="General"
-    TEMPLATE_SOURCE="_templates/general"
-fi
+# 1. Prepare Paths
+# Convert Category to lowercase to match the _templates folder names (e.g., Terraform -> terraform)
+TEMPLATE_FOLDER=$(echo "$CATEGORY" | tr '[:upper:]' '[:lower:]')
 
-# Format directory name (replace spaces with hyphens)
-SAFE_DIR_NAME=$(echo "$TASK_NAME" | tr ' /' '-')
-FULL_PATH="$BASE_DIR/$SAFE_DIR_NAME"
+# Sanitize Task Name for directory creation (replace spaces/slashes with hyphens)
+SAFE_TASK_NAME=$(echo "$TASK_NAME" | tr ' /' '-')
 
-echo "🚀 Creating Task: $TASK_NAME"
-echo "📂 Path: $FULL_PATH"
+# Define paths
+# TARGET_DIR keeps the original capitalization for the parent folder (e.g., Terraform/Task-Name)
+TARGET_DIR="$CATEGORY/$SAFE_TASK_NAME"
+TEMPLATE_SOURCE="_templates/$TEMPLATE_FOLDER"
 
-# 1. Create target directory
-mkdir -p "$FULL_PATH"
+echo "🚀 Starting Task Generation..."
+echo "📂 Category: $CATEGORY"
+echo "📄 Template Source: $TEMPLATE_SOURCE"
+echo "🎯 Target Directory: $TARGET_DIR"
 
-# 2. Copy template files (Scaffolding)
+# 2. Create Task Directory
+mkdir -p "$TARGET_DIR"
+
+# 3. Copy Template Files
 if [ -d "$TEMPLATE_SOURCE" ]; then
-    cp -r "$TEMPLATE_SOURCE/"* "$FULL_PATH/"
-    echo "✅ Template copied from $TEMPLATE_SOURCE"
+    echo "✅ Template found! Copying files..."
+    cp -r "$TEMPLATE_SOURCE/"* "$TARGET_DIR/"
 else
-    echo "⚠️ Template not found. Creating basic file."
-    echo "# $TASK_NAME" > "$FULL_PATH/README.md"
+    echo "⚠️ Template '$TEMPLATE_FOLDER' not found in _templates/. Creating default README."
+    echo "# $TASK_NAME" > "$TARGET_DIR/README.md"
 fi
 
-# 3. Replace placeholders in README (Templating)
-TARGET_README="$FULL_PATH/README.md"
+# 4. Templating (Replace placeholders in README.md)
+TARGET_README="$TARGET_DIR/README.md"
+
 if [ -f "$TARGET_README" ]; then
-    sed -i "s|\[Task Name\]|$TASK_NAME|g" "$TARGET_README"
-    sed -i "s|\[Task Description\]|$TASK_DESC|g" "$TARGET_README"
+    # Clean description (remove newlines to prevent errors in replacement)
+    CLEAN_DESC=$(echo "$TASK_DESC" | tr '\n' ' ')
+    
+    # Use perl for safe replacement of [Task Name] and [Task Description]
+    perl -pi -e "s|\[Task Name\]|$TASK_NAME|g" "$TARGET_README"
+    perl -pi -e "s|\[Task Description\]|$CLEAN_DESC|g" "$TARGET_README"
 fi
 
-# 4. Update parent README table (Auto-documentation)
-PARENT_README="$BASE_DIR/README.md"
+# 5. Update Parent README (Table of Contents)
+PARENT_README="$CATEGORY/README.md"
 
 if [ -f "$PARENT_README" ]; then
-    echo "📝 Updating Table of Contents..."
+    echo "📝 Updating parent table in $PARENT_README..."
     
-    # Create new table row
-    NEW_ROW="| **$TASK_NAME** | 🚧 *Pending* | \`XS\` | \`$TEMPLATE_TYPE\` | [View Solution](./$SAFE_DIR_NAME/) |"
+    # Create the new table row
+    NEW_ROW="| **$TASK_NAME** | 🚧 *In Progress* | \`$TEMPLATE_FOLDER\` | [Go to Solution](./$SAFE_TASK_NAME/) |"
     
-    # Insert row before the table separator (---)
+    # Insert the row before the table separator (---) if it exists, otherwise append to end
     if grep -q "^---" "$PARENT_README"; then
-         sed -i "/^---/i $NEW_ROW" "$PARENT_README"
+       sed -i "/^---/i $NEW_ROW" "$PARENT_README"
     else
-         echo "$NEW_ROW" >> "$PARENT_README"
+       echo "$NEW_ROW" >> "$PARENT_README"
     fi
 fi
 
-echo "🎉 Task initialized successfully!"
+echo "🎉 Done! Folder created at $TARGET_DIR"
