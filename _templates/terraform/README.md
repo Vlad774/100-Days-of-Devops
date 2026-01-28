@@ -12,6 +12,8 @@
 | `main.tf` | Defines the resources and logic. |
 | `variables.tf` | Stores configuration values. |
 | `provider.tf` | Configures the AWS Provider (LocalStack). |
+| `outputs.tf` | Defines outputs to display the provisioned resource names. |
+| `terraform.tfvars` | Assigns specific values to the declared variables. |
 
 ---
 
