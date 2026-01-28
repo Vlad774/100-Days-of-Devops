@@ -4,12 +4,12 @@ Welcome to the Terraform section of my DevOps journey. Here I document Infrastru
 
 ## 📂 Solved Tasks
 
-| Task | Description | Size | Key Skills | Solution |
-|------|-------------|------|------------|----------|
-| **User Variable Setup Using Terraform** | 📄 *See details inside* | `XS` | `TBD` | [View Solution](./User-Variable-Setup/) |
-| **Role-Variable-Setup-Using-Terraform** | `Automating IAM Role creation with variables` | `XS` | `Terraform, IAM, Variables` | [View Solution](./Role-Variable-Setup-Using-Terraform/) |
-| **Policy-Variable-Setup-Using-Terraform** | `Automating IAM Policy creation with variables` | `XS` | `Terraform, IAM, Variables` | [View Solution](./Policy-Variable-Setup-Using-Terraform/) |
-| **Create-VPC-and-Subnet-Using-Terraform** | `Managing explicit dependencies with depends_on` | `XS` | `Terraform, VPC, Subnet` | [View Solution](./Create-VPC-and-Subnet-Using-Terraform/) |
+| Task | Description | Status | Key Skills | Solution |
+|------|-------------|--------|------------|----------|
+| **User Variable Setup Using Terraform** | 📄 *See details inside* | ✅ Done | `Terraform, Variables` | [View Solution](./User-Variable-Setup/) |
+| **Role-Variable-Setup-Using-Terraform** | Automating IAM Role creation with variables. | ✅ Done | `Terraform, IAM, Variables` | [View Solution](./Role-Variable-Setup-Using-Terraform/) |
+| **Policy-Variable-Setup-Using-Terraform** | Automating IAM Policy creation with variables. | ✅ Done | `Terraform, IAM, Variables` | [View Solution](./Policy-Variable-Setup-Using-Terraform/) |
+| **Create-VPC-and-Subnet-Using-Terraform** | Managing explicit dependencies with depends_on. | ✅ Done | `Terraform, VPC, Subnet` | [View Solution](./Create-VPC-and-Subnet-Using-Terraform/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
