@@ -1,5 +1,9 @@
-variable "project_name" {
-  description = "Project name for tagging"
+variable "KKE_VPC_NAME" {
   type        = string
-  default     = "terraform_project"
+  description = "Name of the VPC"
+}
+
+variable "KKE_SUBNET_NAME" {
+  type        = string
+  description = "Name of the Subnet"
 }
