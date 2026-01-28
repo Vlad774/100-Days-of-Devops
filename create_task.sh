@@ -52,10 +52,20 @@ PARENT_README="$CATEGORY/README.md"
 if [ -f "$PARENT_README" ]; then
     echo "📝 Updating parent table in $PARENT_README..."
     
-    # Create the new table row
-    NEW_ROW="| **$TASK_NAME** | 🚧 *In Progress* | \`$TEMPLATE_FOLDER\` | [Go to Solution](./$SAFE_TASK_NAME/) |"
+    # 1. Prepare Description for the Table
+    # Remove newlines and pipe characters (|) to prevent breaking the table structure
+    TABLE_DESC=$(echo "$TASK_DESC" | tr '\n' ' ' | sed 's/|/-/g') 
     
-    # Insert the row before the table separator (---) if it exists, otherwise append to end
+    # If description is empty or default, use a placeholder
+    if [ -z "$TABLE_DESC" ] || [ "$TABLE_DESC" == "No description provided." ]; then 
+        TABLE_DESC="📄 *See details inside*"
+    fi
+
+    # 2. Construct the Table Row (5 Columns)
+    # Format: | Task | Description | Status | Key Skills | Solution |
+    NEW_ROW="| **$TASK_NAME** | $TABLE_DESC | ✅ Done | \`$TEMPLATE_FOLDER\` | [View Solution](./$SAFE_TASK_NAME/) |"
+    
+    # 3. Insert the row before the table separator (---) if it exists, otherwise append to end
     if grep -q "^---" "$PARENT_README"; then
        sed -i "/^---/i $NEW_ROW" "$PARENT_README"
     else
