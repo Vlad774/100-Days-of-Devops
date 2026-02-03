@@ -24,6 +24,8 @@
 
 ## 🚀 Solution
 
+
+
 **Implementation Details:**
 This project uses Terraform to provision network infrastructure. The key requirement is ensuring the Subnet is created strictly *after* the VPC using the `depends_on` meta-argument.
 
