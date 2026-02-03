@@ -20,44 +20,62 @@ jobs:
       - name: ✂️ Parse Issue Title
         id: parse
         run: |
-          # Get the issue title (e.g., "Terraform/Create VPC")
+          # Get the issue title (e.g., "Terraform/AWS/Create VPC")
           TITLE="${{ github.event.issue.title }}"
           
-          # Logic: Split by slash '/'. 
-          # Part 1 = Category (Folder/Template), Part 2 = Task Name.
-          if [[ "$TITLE" == *"/"* ]]; then
-            CATEGORY=$(echo "$TITLE" | awk -F'/' '{print $1}' | xargs)
-            TASK_NAME=$(echo "$TITLE" | awk -F'/' '{print $2}' | xargs)
+          # Count slashes to determine structure:
+          # 1 slash = Category/Task (e.g. Docker/Task-1)
+          # 2 slashes = Category/SubCategory/Task (e.g. Terraform/AWS/Task-1)
+          SLASH_COUNT=$(echo "$TITLE" | tr -cd '/' | wc -c)
+
+          if [ "$SLASH_COUNT" -eq 2 ]; then
+             # Format: Category/SubCategory/Task-Name
+             CATEGORY=$(echo "$TITLE" | cut -d'/' -f1 | xargs)
+             SUBCATEGORY=$(echo "$TITLE" | cut -d'/' -f2 | xargs)
+             TASK_NAME=$(echo "$TITLE" | cut -d'/' -f3 | xargs)
+          elif [ "$SLASH_COUNT" -eq 1 ]; then
+             # Format: Category/Task-Name
+             CATEGORY=$(echo "$TITLE" | cut -d'/' -f1 | xargs)
+             SUBCATEGORY=""
+             TASK_NAME=$(echo "$TITLE" | cut -d'/' -f2 | xargs)
           else
-            # If no slash is found, default to General
-            CATEGORY="General"
-            TASK_NAME="$TITLE"
+             # Format: Task-Name (Fallback to General)
+             CATEGORY="General"
+             SUBCATEGORY=""
+             TASK_NAME="$TITLE"
           fi
           
           echo "📂 Category detected: $CATEGORY"
+          echo "📂 SubCategory detected: $SUBCATEGORY"
           echo "📝 Task Name detected: $TASK_NAME"
           
-          # Save variables for the next steps
+          # Export variables for next steps
           echo "category=$CATEGORY" >> $GITHUB_OUTPUT
+          echo "subcategory=$SUBCATEGORY" >> $GITHUB_OUTPUT
           echo "task_name=$TASK_NAME" >> $GITHUB_OUTPUT
 
       - name: ⚙️ Run Generator Script
         run: |
           chmod +x ./create_task.sh
-          # Execute script with arguments: "Task Name" "Body" "Category"
-          ./create_task.sh "${{ steps.parse.outputs.task_name }}" "${{ github.event.issue.body }}" "${{ steps.parse.outputs.category }}"
+          # Execute script with 4 arguments: Name, Body, Category, SubCategory
+          ./create_task.sh "${{ steps.parse.outputs.task_name }}" "${{ github.event.issue.body }}" "${{ steps.parse.outputs.category }}" "${{ steps.parse.outputs.subcategory }}"
 
       - name: 🔧 Commit & Push (Feature Branch)
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           
-          # Sanitize branch name (replace spaces with hyphens)
+          # Sanitize branch parts (replace spaces with hyphens)
           SAFE_CAT=$(echo "${{ steps.parse.outputs.category }}" | tr ' ' '-')
           SAFE_TASK=$(echo "${{ steps.parse.outputs.task_name }}" | tr ' ' '-')
           
-          # Branch structure: feature/Category/Task-Name
-          BRANCH_NAME="feature/$SAFE_CAT/$SAFE_TASK"
+          # Construct Branch Name depending on SubCategory
+          if [ -n "${{ steps.parse.outputs.subcategory }}" ]; then
+            SAFE_SUB=$(echo "${{ steps.parse.outputs.subcategory }}" | tr ' ' '-')
+            BRANCH_NAME="feature/$SAFE_CAT/$SAFE_SUB/$SAFE_TASK"
+          else
+            BRANCH_NAME="feature/$SAFE_CAT/$SAFE_TASK"
+          fi
           
           git checkout -b "$BRANCH_NAME"
           
@@ -75,7 +93,7 @@ jobs:
             ✅ **Task Initialized!**
             
             📂 **Category:** `${{ steps.parse.outputs.category }}`
-            🛠 **Template Used:** `_templates/${{ steps.parse.outputs.category }}`
+            📂 **Sub-Category:** `${{ steps.parse.outputs.subcategory }}`
             🌿 **Branch:** `${{ steps.parse.outputs.branch_name }}`
             
             **To start working:**
