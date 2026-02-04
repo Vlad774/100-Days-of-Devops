@@ -8,8 +8,8 @@ Welcome to the Linux section of my DevOps journey. Here I document solutions for
 |------|-------------|--------|------------|----------|
 | **GPG Encryption** | Secure file transfer using asymmetric encryption (GPG). Automating decryption with passphrases. | ✅ Done | `GPG, SecOps, Encryption` | [View Solution](./GPG-Encryption/) |
 | **Linux LogRotate** | Automated Squid Log Management with Logrotate. | ✅ Done | `Bash, Logrotate, Security` | [View Solution](./Linux-LogRotate/) |
-| **Application-Security** | Hardening Network Ports (Nginx/Apache) with iptables. | ✅ Done | `iptables, Nginx, Security` | [View Solution](./Application-Security/) |
-| **Linux-Bash-Scripts** | Automate Web Backup & Remote Transfer. | ✅ Done | `Bash, SSH, Backup` | [View Solution](./Linux-Bash-Scripts/) |
+| **Application Security** | Hardening Network Ports (Nginx/Apache) with iptables. | ✅ Done | `iptables, Nginx, Security` | [View Solution](./Application-Security/) |
+| **Linux Bash Scripts** | Automate Web Backup & Remote Transfer. | ✅ Done | `Bash, SSH, Backup` | [View Solution](./Linux-Bash-Scripts/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
