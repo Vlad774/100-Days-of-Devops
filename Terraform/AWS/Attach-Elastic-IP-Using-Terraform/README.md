@@ -19,6 +19,15 @@
 
 ## 🚀 Solution
 
+1. Adding 1 resource block 
+
+```bash
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.ec2.id
+  allocation_id = aws_eip.ec2_eip.id
+}
+```
+
 ### 📝 Execution Steps
 
 ```bash
