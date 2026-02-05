@@ -43,7 +43,6 @@ resource "aws_s3_bucket" "ghost" {
 Prepare the working directory and download providers.
 
 
-
 terraform init
 2. Import Existing Resources
 The bucket already exists in AWS. We import it into the state file to prevent BucketAlreadyExists errors.
