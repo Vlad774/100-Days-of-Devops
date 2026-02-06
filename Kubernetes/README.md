@@ -6,6 +6,7 @@ Welcome to the Kubernetes section of my DevOps journey. Here I document containe
 
 | Task | Description | Status | Key Skills | Solution |
 |------|-------------|--------|------------|----------|
+| **Deploy Pods in Kubernetes Cluster** | The Nautilus DevOps team is diving into Kubernetes for application management. One team member has a task to create a pod according to the details below:   Create a pod named pod-nginx using the nginx image with the latest tag. Ensure to specify the tag as nginx:latest.  Set the app label to nginx_app, and name the container as nginx-container.  | ✅ Done | `kubernetes` | [View Solution](./Deploy-Pods-in-Kubernetes-Cluster/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
