@@ -6,6 +6,7 @@ Welcome to the Kubernetes section of my DevOps journey. Here I document containe
 
 | Task | Description | Status | Key Skills | Solution |
 |------|-------------|--------|------------|----------|
+| **Deploy Pods in Kubernetes Cluster** | Create a pod named `pod-nginx` using the `nginx` image with the `latest` tag  | ✅ Done | `kubernetes` | [View Solution](./Deploy-Pods-in-Kubernetes-Cluster/) |
 ---
 
 *This table is automatically updated by GitHub Actions.*
