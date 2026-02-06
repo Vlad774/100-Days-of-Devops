@@ -18,7 +18,7 @@ Select a module to explore the tasks and solutions:
 | **[🐳 Docker](./Docker/)** | `Containerization`, `Compose` | ![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker&logoColor=white) | 🟢 Active |
 | **[📜 Ansible](./Ansible/)** | `Config Mgmt`, `Playbooks` | ![Ansible](https://img.shields.io/badge/-Ansible-EE0000?logo=ansible&logoColor=white) | ⚪ Planned |
 | **[👷 Jenkins](./Jenkins/)** | `CI/CD`, `Pipelines` | ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white) | ⚪ Planned | **0** |
-| **[☸️ Kubernetes](./Kubernetes/)** | `Orchestration`, `Pods` | ![K8s](https://img.shields.io/badge/-Kubernetes-326ce5?logo=kubernetes&logoColor=white) | ⚪ Planned |
+| **[☸️ Kubernetes](./Kubernetes/)** | `Orchestration`, `Pods` | ![K8s](https://img.shields.io/badge/-Kubernetes-326ce5?logo=kubernetes&logoColor=white) | 🟢 Active |
 | **[☁️ Terraform](./Terraform/)** | `IaC`, `AWS` | ![Terraform](https://img.shields.io/badge/-Terraform-623ce4?logo=terraform&logoColor=white) | 🟢 Active |
 | **[🔧 Git & Tools](./Git/)** | `VCS`, `Branching` | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white) | ⚪ Planned |
 
@@ -27,6 +27,7 @@ Select a module to explore the tasks and solutions:
 ## 📬 Contact & Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Vlad774-black?style=flat&logo=github)](https://github.com/Vlad774)
+
 
 
 
