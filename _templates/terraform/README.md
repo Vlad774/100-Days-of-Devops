@@ -1,38 +1,59 @@
-# 🛠️ [Task Name]
+# [Task Name]
 
-![Terraform](https://img.shields.io/badge/Terraform-1.0+-purple?style=flat&logo=terraform) ![AWS](https://img.shields.io/badge/AWS-Infrastructure-orange?style=flat&logo=amazon-aws)
+![Terraform](https://img.shields.io/badge/Terraform-1.0+-purple?style=flat&logo=terraform)
+![AWS](https://img.shields.io/badge/AWS-Infrastructure-orange?style=flat&logo=amazon-aws)
 
-## 📄 Task Description
-**Task:** [Task Description]
+## 📋 Task Description
+
+[Describe the task as it arrived — from a ticket, a team request, or an incident.]
+
+## 🏗️ Architecture & Logic
+
+[What gets created and how the components relate to each other. ASCII diagram is fine.]
+
+```
+VPC (10.0.0.0/16)
+└── Subnet (10.0.1.0/24)
+    └── EC2 instance
+```
+
+## 🧠 Why This Approach (Key Decisions)
+
+- **Why explicit `depends_on` instead of implicit** — Terraform can infer dependencies on its own, but an explicit `depends_on` makes the intent obvious during code review.
+- **Why variables instead of hardcoded values** — configuration can be reused without touching the code; values change through `tfvars`.
+- **[Add your own decision]** — explain the key choice specific to this task.
+
+## 🛠️ Tech Stack
+
+- **Tool:** Terraform
+- **Provider:** AWS (LocalStack)
+- **Version:** ~> 5.0
 
 ## 📂 Project Structure
 
 | File | Description |
 |------|-------------|
-| `main.tf` | Defines the resources and logic. |
-| `variables.tf` | Stores configuration values. |
-| `provider.tf` | Configures the AWS Provider (LocalStack). |
-| `outputs.tf` | Defines outputs to display the provisioned resource names. |
-| `terraform.tfvars` | Assigns specific values to the declared variables. |
+| `main.tf` | Resources and logic |
+| `variables.tf` | Input variables |
+| `provider.tf` | AWS provider configuration (LocalStack) |
+| `outputs.tf` | Values exposed after apply |
+| `terraform.tfvars` | Variable values (listed in .gitignore) |
 
----
-
-## 🚀 Solution
-
-### 📝 Execution Steps
+## 🚀 How to Run
 
 ```bash
-# 1. Initialize
+# Initialize providers
 terraform init
 
-# 2. Validate
+# Validate syntax
 terraform validate
 
-# 3. Plan
+# Preview changes
 terraform plan
 
-# 4. Apply
+# Apply
 terraform apply -auto-approve
 
-# 5. Verify
+# Verify created resources
 terraform state list
+```

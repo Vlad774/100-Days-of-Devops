@@ -1,0 +1,20 @@
+# Kustomize lets you manage configuration without Helm and without duplicating YAML.
+# Usage: kubectl apply -k .
+#
+# Docs: https://kubectl.docs.kubernetes.io/references/kustomize/
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment.yaml
+  - service.yaml
+
+# commonLabels adds labels to all resources
+# commonLabels:
+#   app.kubernetes.io/managed-by: kustomize
+
+# images lets you change the image tag without editing manifests
+# images:
+#   - name: nginx
+#     newTag: "1.25"
