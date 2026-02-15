@@ -8,19 +8,6 @@
 
 ## 🏗️ Architecture & Logic
 
-[Which hosts are targeted and what gets configured.]
-
-```
-[inventory]
-└── stapp01 (172.16.238.10)
-└── stapp02 (172.16.238.11)
-
-playbook.yml
-└── hosts: all
-    ├── task: install nginx
-    ├── task: copy config
-    └── task: start & enable service
-```
 
 ## 🧠 Why This Approach (Key Decisions)
 
