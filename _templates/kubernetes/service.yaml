@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: [app-name]-svc
+spec:
+  # ClusterIP    — internal cluster access only (default)
+  # NodePort     — accessible from outside via node port
+  # LoadBalancer — cloud load balancer (AWS ALB, GCP LB)
+  type: ClusterIP
+  selector:
+    app: [app-name]
+  ports:
+    - protocol: TCP
+      port: 80        # service port inside the cluster
+      targetPort: 80  # container port

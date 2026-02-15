@@ -1,0 +1,40 @@
+services:
+  web:
+    # build: .          # use this to build from a local Dockerfile
+    image: [image]:[tag]
+    container_name: [container-name]
+    ports:
+      - "[host-port]:[container-port]"
+    volumes:
+      - [host-path]:[container-path]
+    environment:
+      # Do not hardcode secrets here. Use a .env file or Docker secrets.
+      - VAR_NAME=${VAR_NAME}
+    depends_on:
+      db:
+        condition: service_healthy  # wait for healthy, not just started
+    restart: unless-stopped
+
+  db:
+    image: mariadb:lts
+    container_name: [db-container-name]
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  db_data:
+    # Named volume is preferred over bind mount for database data:
+    # Docker manages the path and data survives container recreation.

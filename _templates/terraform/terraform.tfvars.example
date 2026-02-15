@@ -1,1 +1,7 @@
-#put things here
+# Copy this file to terraform.tfvars and fill in the values.
+# terraform.tfvars is listed in .gitignore — do not commit it.
+#
+# cp terraform.tfvars.example terraform.tfvars
+
+project_name = "xfusion"
+environment  = "dev"

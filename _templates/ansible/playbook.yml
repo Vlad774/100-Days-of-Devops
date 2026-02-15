@@ -1,0 +1,41 @@
+---
+- name: [One-line description of what this play does]
+  hosts: all          # or a specific group from inventory
+  become: true        # sudo — only if actually required
+  gather_facts: true  # set to false if facts are unused (speeds up execution)
+
+  vars:
+    # Play-level variables — specific to this playbook
+    service_name: nginx
+
+  tasks:
+    - name: Ensure [package] is installed
+      ansible.builtin.package:
+        name: "{{ service_name }}"
+        state: present
+        # present  — install if missing, leave alone if already installed
+        # latest   — always upgrade (breaks idempotency)
+        # absent   — uninstall
+
+    - name: Copy configuration file
+      ansible.builtin.template:
+        src: templates/[config.j2]
+        dest: /etc/[service]/[config]
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart [service]  # triggers the handler only when the file changes
+
+    - name: Ensure [service] is started and enabled
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: started
+        enabled: true
+
+  handlers:
+    # A handler runs once at the end of the play, only if triggered via notify.
+    # This is the idiomatic way to restart a service in Ansible.
+    - name: Restart [service]
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: restarted

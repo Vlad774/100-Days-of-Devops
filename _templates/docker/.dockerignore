@@ -1,0 +1,41 @@
+# Version control
+.git
+.gitignore
+
+# Environment & secrets
+.env
+.env.*
+*.env
+
+# Dependencies (rebuilt inside the container)
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+target/
+
+# Tests and documentation
+tests/
+docs/
+*.md
+!README.md
+
+# IDE and OS artifacts
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets (belt-and-suspenders — primary protection is in .gitignore)
+*.pem
+*.key
+*.crt
+id_rsa*

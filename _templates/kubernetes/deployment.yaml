@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: [app-name]
+  labels:
+    app: [app-name]
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: [app-name]
+  template:
+    metadata:
+      labels:
+        app: [app-name]
+    spec:
+      containers:
+        - name: [app-name]
+          image: [image]:[tag]
+          ports:
+            - containerPort: 80
+          # Resource limits are mandatory in production.
+          # Without them a single pod can exhaust all node memory.
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          # Liveness probe — K8s restarts the container if it becomes unresponsive
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          # Readiness probe — traffic is only routed when the app is ready
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
