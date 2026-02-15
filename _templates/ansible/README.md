@@ -24,9 +24,6 @@ playbook.yml
 
 ## 🧠 Why This Approach (Key Decisions)
 
-- **Why `state: present` instead of `state: latest`** — `latest` upgrades the package on every run, breaking idempotency. `present` installs once and leaves it alone.
-- **Why handlers instead of a direct restart** — a handler runs once at the end of the play, even if multiple files changed. A direct `service restart` task would trigger on every run.
-- **[Add your own decision]** — explain the key choice specific to this task.
 
 ## 🛠️ Tech Stack
 
