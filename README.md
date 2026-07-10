@@ -1,33 +1,51 @@
 # 🚀 Many Days of DevOps Challenge
 
-![Status](https://img.shields.io/badge/Status-In_Progress-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-green?style=for-the-badge)
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)
 ![Repo Size](https://img.shields.io/github/repo-size/Vlad774/100-Days-of-Devops?style=for-the-badge)
 
-Welcome to my DevOps journey repository! Here I document my path, solving real-world infrastructure problems, writing automation scripts, and configuring cloud environments.
+Hands-on DevOps practice tasks (KodeKloud Engineer program) with write-ups: what was asked,
+how I solved it, what broke, and how I fixed it.
+
+**The track is curated, not completionist**: from a ~400-task catalog I run the
+[**47-task curated plan**](./curriculum/study_plan_v4.md) that closes real interview gaps —
+Kubernetes troubleshooting, Ansible, Terraform patterns, AWS scenarios, Azure. Blocks I already
+use in production daily (Linux server ops, Git, Docker, Jenkins pipelines —
+see [Borod Bank](https://github.com/Synaptix-Innovations/borod-bank-docs)) are intentionally
+skipped. The full catalog with skip-rationale lives in [`curriculum/`](./curriculum/).
 
 ---
 
-## 🧭 Navigation Hub
+## 🗺️ Current Track — [Study Plan v4](./curriculum/study_plan_v4.md)
 
-Select a module to explore the tasks and solutions:
+| Phase | Focus | Tasks | Status |
+|:------|:------|:-----:|:------:|
+| **1** | ☸️ Kubernetes Troubleshooting & Advanced | 11 | 🟢 Active |
+| **2** | 📜 Ansible | 12 | ⏳ Queued |
+| **3** | ☁️ Terraform Drills (state, modules, IAM) | 9 | ⏳ Queued |
+| **4** | 🅰️ AWS Scenarios (ECS, Lambda, ALB, NAT, SQS/SNS, KMS) | 8 | ⏳ Queued |
+| **5** | 🔷 Azure Starter (AKS, ACR, Key Vault, App GW) | 7 | ⏸ Gated |
 
-| 📂 Module | 🎯 Focus Areas | 🛠️ Tech Stack | 📊 Status |
-|:----------|:---------------|:---------------|:----------|
-| **[🐧 Linux Ops](./Linux/)** | `User Management`, `Permissions` | ![Bash](https://img.shields.io/badge/-Bash-black?logo=gnu-bash&logoColor=white) | 🟢 Active |
-| **[🐳 Docker](./Docker/)** | `Containerization`, `Compose` | ![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker&logoColor=white) | 🟢 Active |
-| **[📜 Ansible](./Ansible/)** | `Config Mgmt`, `Playbooks` | ![Ansible](https://img.shields.io/badge/-Ansible-EE0000?logo=ansible&logoColor=white) | ⚪ Planned |
-| **[👷 Jenkins](./Jenkins/)** | `CI/CD`, `Pipelines` | ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white) | ⚪ Planned | **0** |
-| **[☸️ Kubernetes](./Kubernetes/)** | `Orchestration`, `Pods` | ![K8s](https://img.shields.io/badge/-Kubernetes-326ce5?logo=kubernetes&logoColor=white) | 🟢 Active |
-| **[☁️ Terraform](./Terraform/)** | `IaC`, `AWS` | ![Terraform](https://img.shields.io/badge/-Terraform-623ce4?logo=terraform&logoColor=white) | 🟢 Active |
-| **[🔧 Git & Tools](./Git/)** | `VCS`, `Branching` | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white) | ⚪ Planned |
+**Workflow:** issue (`Category/Task Name`) + label `build` → GitHub Action scaffolds the folder
+and feature branch → solve → write-up → PR → merge.
+
+---
+
+## 🧭 Solutions by Module
+
+| 📂 Module | 🎯 Focus Areas | 📊 Status |
+|:----------|:---------------|:----------|
+| **[☸️ Kubernetes](./Kubernetes/)** | `Troubleshooting`, `Volumes`, `Secrets`, `Sidecars` | 🟢 Active (Phase 1) |
+| **[📜 Ansible](./Ansible/)** | `Playbooks`, `Modules`, `Jinja2` | ⏳ Phase 2 |
+| **[☁️ Terraform](./Terraform/)** | `IaC`, `AWS`, `Modules`, `Workspaces` | ⏳ Phase 3 |
+| **[🐧 Linux Ops](./Linux/)** | `Hardening`, `Automation` | ✅ Selected archive |
+| **[🐳 Docker](./Docker/)** | `Containerization`, `Compose` | ✅ Selected archive |
+| **[👷 Jenkins](./Jenkins/)** | `CI/CD`, `Pipelines` | ✅ Selected archive |
+| **[🔧 Git & Tools](./Git/)** | `VCS`, `Branching` | ✅ Selected archive |
 
 ---
 
 ## 📬 Contact & Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Vlad774-black?style=flat&logo=github)](https://github.com/Vlad774)
-
-
-
-
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-vlad--vesninsky-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/vlad-vesninsky/)
